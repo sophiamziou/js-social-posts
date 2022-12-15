@@ -59,6 +59,11 @@ const posts = [
 let postsContent = '';
 
 posts.forEach((elem) => {
+    const date = elem.created;
+    const [year, month, day] = date.split('-');
+    const result = [month, day, year].join('/');
+    console.log(result)
+
     postsContent += `<div class="post">
     <div class="post__header">
         <div class="post-meta">                    
@@ -67,7 +72,7 @@ posts.forEach((elem) => {
             </div>
             <div class="post-meta__data">
                 <div class="post-meta__author">${elem.author.name}</div>
-                <div class="post-meta__time">${elem.created}</div>
+                <div class="post-meta__time">${result}</div>
             </div>                    
         </div>
     </div>
@@ -88,14 +93,13 @@ posts.forEach((elem) => {
             </div>
         </div> 
     </div>            
-    </div>`
+    </div>`;
 })
 
 const postsContainer = document.getElementById('container');
 postsContainer.innerHTML += postsContent;
 
 const miPiace = document. getElementsByClassName (' js-like-button')
-console. log (miPiace)
 
 for (let i=0 ; i < miPiace.length; i++){
     miPiace[i].addEventListener ( 'click' , function ( ) {
@@ -105,5 +109,5 @@ for (let i=0 ; i < miPiace.length; i++){
     const likesNumber = parseInt(likes.innerText)
     likes.innerText = likesNumber+1
     console.log (likesNumber)
-    })
+    },{once: 'true'})
 }
