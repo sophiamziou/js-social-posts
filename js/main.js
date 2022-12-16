@@ -38,7 +38,7 @@ const posts = [
         "media": "https://unsplash.it/600/400?image=24",
         "author": {
             "name": "Luca Formicola",
-            "image": "https://unsplash.it/300/300?image=29"
+            "image": null
         },
         "likes": 56,
         "created": "2021-04-03"
@@ -57,24 +57,37 @@ const posts = [
 ];
 
 let postsContent = '';
-
+// bonus 1
 posts.forEach((elem) => {
     const date = elem.created;
     const [year, month, day] = date.split('-');
     const result = [month, day, year].join('/');
     console.log(result)
 
+    // BONUS 2 
+    if(elem.author.image == null){
+        let text = elem.author.name;
+        const arrayName = text.split(" ");
+        let nome = arrayName[0];
+        let cognome = arrayName[1];
+        let letteraNome = nome.charAt(0);
+        let letteraCognome = cognome.charAt(0); 
+        immagine = `<h1 class="profile-pic color-black">${letteraNome}${letteraCognome}</h1>`;
+    }else{
+        immagine = `<img class="profile-pic" src="${elem.author.image}" alt="Phil Mangione">`;               
+    }
+    
     postsContent += `<div class="post">
     <div class="post__header">
         <div class="post-meta">                    
             <div class="post-meta__icon">
-                <img class="profile-pic" src="${elem.author.image}" alt="Phil Mangione">                    
+                ${immagine}
             </div>
             <div class="post-meta__data">
                 <div class="post-meta__author">${elem.author.name}</div>
                 <div class="post-meta__time">${result}</div>
-            </div>                    
-        </div>
+            </div>
+       </div>
     </div>
     <div class="post__text">${elem.content}</div>
     <div class="post__image">
@@ -83,7 +96,7 @@ posts.forEach((elem) => {
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#" data-postid="${elem.id}">
+                <a class="like-button  js-like-button" href="javascript:" data-postid="${elem.id}">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
@@ -99,6 +112,7 @@ posts.forEach((elem) => {
 const postsContainer = document.getElementById('container');
 postsContainer.innerHTML += postsContent;
 
+// MILESTONE 3 - BONUS 3
 const bottoneLike = document.getElementsByClassName('js-like-button');
 const arrayLike = [];
 
